@@ -1,0 +1,9 @@
+node_modules
+dist
+.nuxt
+.output
+README.md
+package.json
+tailwind.config.js
+tsconfig.json
+nuxt.config.ts
