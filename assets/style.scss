@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-def {
+  @apply bg-white dark:bg-[#181818];
+}
+
+.bg-def-600 {
+  @apply bg-gray-100 dark:bg-[#121212];
+}
+
+.text {
+  @apply text-black dark:text-gray-50;
+}
+
+.text-dark-300 {
+  @apply text-gray-500;
+}
+
+.border-def {
+  @apply border border-[#353535];
+}
+
+.border-def-br {
+  @apply border-b border-r border-[#353535];
+}
+
+.border-def-b {
+  @apply border-b border-[#353535];
+}
+
+.border-def-r {
+  @apply border-r border-[#353535];
+}
