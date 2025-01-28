@@ -2,52 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+$def-bg-color: #191919;
+$def-bg-600-color: #131313;
+$def-br-color: #353535;
+
 .bg-def {
-  @apply bg-white dark:bg-[#191919];
+  background-color: $def-bg-color;
 }
 
 .bg-def-opacity {
-  @apply bg-white dark:bg-[#191919]/75
+  background-color: rgba($def-bg-color, 0.75);
 }
 
 .bg-def-600 {
-  @apply bg-gray-100 dark:bg-[#131313];
+  background-color: $def-bg-600-color;
 }
 
 .text {
-  @apply text-black dark:text-gray-50;
-}
-
-.text-dark-300 {
-  @apply text-gray-500;
+  @apply dark:text-gray-50;
 }
 
 .border-def {
-  @apply border border-[#353535];
+  border: 1px solid $def-br-color;
 }
 
 .border-def-t {
-  @apply border-t border-[#353535];
+  border-top: 1px solid $def-br-color;
 }
 
 .border-def-br {
-  @apply border-b border-r border-[#353535];
+  border-right: 1px solid $def-br-color;
+  border-bottom: 1px solid $def-br-color;
 }
 
 .border-def-b {
-  @apply border-b border-[#353535];
+  border-bottom: 1px solid $def-br-color;
 }
 
 .border-def-r {
-  @apply border-r border-[#353535];
+  border-right: 1px solid $def-br-color;
 }
 
 .border-def-tl {
-  @apply border-t border-l border-[#353535];
+  border-left: 1px solid $def-br-color;
+  border-top: 1px solid $def-br-color;
 }
 
 .border-def-l {
-  @apply border-l border-[#353535];
+  border-left: 1px solid $def-br-color;
 }
 
 .btn-danger {

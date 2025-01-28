@@ -39,13 +39,16 @@
 <script setup lang="ts">
 import { type ItemType } from "@/types"
 
-const props = defineProps<{
+type PropsType = {
   activeItem: ItemType | undefined
-}>()
+}
 
-const emit = defineEmits<{
+type EmitsType = {
   (e: "close", payload?: boolean): void
-}>()
+}
+
+const props = defineProps<PropsType>()
+const emit = defineEmits<EmitsType>()
 
 const isActiveItemClosable = ref(false)
 const activeItemBlock = ref(null)
