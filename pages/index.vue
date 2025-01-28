@@ -4,16 +4,23 @@
       <div class="flex space-x-3 h-[90vh] w-full">
         <div class="bg-def rounded-xl border-def h-full w-[28%]"></div>
         <div class="bg-def rounded-xl border-def h-full w-[72%] relative">
-          <div class="grid-cols-5 grid-rows-5 h-full w-full grid">
+          <VueDraggable
+            ref="draggable"
+            v-model="sortedItems"
+            :animation="150"
+            class="grid-cols-5 grid-rows-5 h-full w-full grid"
+            @end="onEnd"
+          >
             <div
               class="size-full"
               v-for="(item, index) in sortedItems"
               @click="() => showDetailedItem(item)"
               :class="getItemClasses(index)"
+              :key="index"
             >
               <div class="m-auto">{{ item?.count }}</div>
             </div>
-          </div>
+          </VueDraggable>
           <transition name="slide">
             <ItemSidebar :activeItem="activeItem" v-show="showActiveItem" @close="close" />
           </transition>
@@ -26,10 +33,12 @@
 
 <script setup lang="ts">
 import { type ItemType } from "@/types"
+import { type DraggableEvent, VueDraggable } from "vue-draggable-plus"
 
 const gridElementsX = ref(5)
 const gridElementsY = ref(5)
 const showActiveItem = ref(false)
+const draggable = ref(null)
 
 const activeItem = ref(undefined as ItemType | undefined)
 
@@ -57,6 +66,7 @@ const sortedItems = computed((): Array<ItemType | null> => {
       while (nextAvailableIndex < gridElementsAll.value) {
         if (result[nextAvailableIndex] === null) {
           result[nextAvailableIndex] = item
+          item.position = nextAvailableIndex
           break
         }
         nextAvailableIndex++
@@ -66,6 +76,16 @@ const sortedItems = computed((): Array<ItemType | null> => {
 
   return result
 })
+
+const onEnd = (e: DraggableEvent) => {
+  const movedItem = sortedItems.value[e.oldIndex]
+  const newPosition = e.newIndex
+
+  if (movedItem && newPosition !== undefined) {
+    movedItem.position = newPosition
+    items.value = [...items.value]
+  }
+}
 
 const getItemClasses = (index: number) => ({
   "border-def-br":
