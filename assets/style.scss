@@ -6,6 +6,10 @@
   @apply bg-white dark:bg-[#191919];
 }
 
+.bg-def-opacity {
+  @apply bg-white dark:bg-[#191919]/75
+}
+
 .bg-def-600 {
   @apply bg-gray-100 dark:bg-[#131313];
 }

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute rounded-xl border-def-l right-0 top-0 bg-def h-full w-80"
+    class="absolute rounded-xl border-def-l right-0 top-0 bg-def-opacity backdrop-filter backdrop-blur-sm h-full w-80"
     ref="activeItemBlock"
   >
     <div class="absolute top-0 left-0 w-full flex items-center justify-center">
