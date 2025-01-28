@@ -1,8 +1,16 @@
 <template>
   <div
-    class="absolute rounded-xl border-def right-0 top-0 bg-def h-full w-80"
+    class="absolute rounded-xl border-def-l right-0 top-0 bg-def h-full w-80"
     ref="activeItemBlock"
   >
+    <div class="absolute top-0 left-0 w-full flex items-center justify-center">
+      <img
+        :src="activeItem?.image"
+        alt="Item Image"
+        class="max-w-40 max-h-40 py-7 object-contain"
+        v-if="activeItem?.image"
+      />
+    </div>
     <div class="absolute bottom-0 left-0 w-full bg-def border-def-t p-3">
       <div class="btn-danger" v-show="!showDeleteInput" @click="showDeleteInput = true">
         Delete item

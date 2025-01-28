@@ -42,6 +42,10 @@
   @apply border-t border-l border-[#353535];
 }
 
+.border-def-l {
+  @apply border-l border-[#353535];
+}
+
 .btn-danger {
   @apply bg-red-500 text-white rounded-lg text-center text-lg font-medium py-1.5 cursor-pointer shadow-lg shadow-red-500/50;
 }
