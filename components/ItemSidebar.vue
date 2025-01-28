@@ -1,16 +1,16 @@
 <template>
   <div
-    class="absolute rounded-xl border-def right-0 top-0 bg-def-600 h-full w-80"
+    class="absolute rounded-xl border-def right-0 top-0 bg-def h-full w-80"
     ref="activeItemBlock"
   >
-    <div class="absolute bottom-0 left-0 w-full bg-def py-3 px-2">
+    <div class="absolute bottom-0 left-0 w-full bg-def border-def-t p-3">
       <div class="btn-danger" v-show="!showDeleteInput" @click="showDeleteInput = true">
         Delete item
       </div>
       <div class="flex flex-col space-y-2" v-show="showDeleteInput">
         <input
           type="text"
-          class="p-1.5 bg-def-600 rounded-lg placeholder:text-gray-600 text-gray-500 focus:outline-none"
+          class="py-2 px-3 bg-def-600 rounded-lg placeholder:text-gray-500 text-gray-500 focus:outline-none"
           :class="{ 'border border-red-600': invalidInput }"
           placeholder="Count..."
           pattern="[0-9]*"
@@ -20,7 +20,7 @@
           @keyup.enter="updateItemCount"
         />
         <div class="flex space-x-2 w-full">
-          <div class="btn-white w-1/2" @click="showDeleteInput = false">Cancel</div>
+          <div class="btn-white w-1/2" @click="() => close()">Cancel</div>
           <div class="btn-danger w-1/2" @click="updateItemCount">Delete item</div>
         </div>
       </div>

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .bg-def {
-  @apply bg-white dark:bg-[#181818];
+  @apply bg-white dark:bg-[#191919];
 }
 
 .bg-def-600 {
-  @apply bg-gray-100 dark:bg-[#121212];
+  @apply bg-gray-100 dark:bg-[#131313];
 }
 
 .text {
@@ -22,6 +22,10 @@
   @apply border border-[#353535];
 }
 
+.border-def-t {
+  @apply border-t border-[#353535];
+}
+
 .border-def-br {
   @apply border-b border-r border-[#353535];
 }
@@ -34,10 +38,14 @@
   @apply border-r border-[#353535];
 }
 
+.border-def-tl {
+  @apply border-t border-l border-[#353535];
+}
+
 .btn-danger {
-  @apply bg-red-600 text-white rounded-lg text-center text-lg font-semibold py-2 cursor-pointer;
+  @apply bg-red-500 text-white rounded-lg text-center text-lg font-medium py-1.5 cursor-pointer shadow-lg shadow-red-500/50;
 }
 
 .btn-white {
-  @apply bg-white text-black rounded-lg text-center text-lg font-semibold py-2 cursor-pointer;
+  @apply bg-white text-black rounded-lg text-center text-lg font-medium py-1.5 cursor-pointer shadow-lg shadow-white/50;
 }

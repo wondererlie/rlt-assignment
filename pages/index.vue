@@ -1,7 +1,7 @@
 <template>
   <div class="bg-def-600 h-screen py-5 px-16 text overflow-hidden">
     <div class="flex flex-col space-y-3 h-full">
-      <div class="flex space-x-3 h-[90vh] w-full">
+      <div class="flex space-x-3 h-[90%] w-full">
         <div class="bg-def rounded-xl border-def h-full w-[28%]"></div>
         <div class="bg-def rounded-xl border-def h-full w-[72%] relative">
           <VueDraggable
@@ -12,13 +12,24 @@
             @end="onEnd"
           >
             <div
-              class="size-full"
+              class="relative size-full flex items-center justify-center"
               v-for="(item, index) in sortedItems"
               @click="() => showDetailedItem(item)"
               :class="getItemClasses(index)"
               :key="index"
             >
-              <div class="m-auto">{{ item?.count }}</div>
+              <img
+                :src="item?.image"
+                alt="Item Image"
+                class="p-3 max-w-full max-h-full object-contain"
+                v-if="item?.image"
+              />
+              <div
+                class="absolute bottom-0 right-0 size-5 flex items-center justify-center border-def-tl text-gray-500 rounded-tl text-sm"
+                v-if="item?.count && item?.count !== 1"
+              >
+                {{ item?.count }}
+              </div>
             </div>
           </VueDraggable>
           <transition name="slide">
@@ -26,7 +37,7 @@
           </transition>
         </div>
       </div>
-      <div class="w-full bg-def rounded-xl h-[10vh] border-def"></div>
+      <div class="w-full bg-def rounded-xl h-[10%] border-def"></div>
     </div>
   </div>
 </template>
@@ -48,9 +59,26 @@ const items = useCookie<ItemType[] | null | undefined>("items")
 
 if (!items.value) {
   items.value = [
-    { id: 1, image: "image", count: 4, position: 17 },
-    { id: 2, image: "image", count: 2, position: 3 },
-    { id: 3, image: "image", count: 5 },
+    {
+      id: 1,
+      image:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fminecraft_zh_gamepedia%2Fimages%2Fb%2Fb1%2FNetherite_Chestplate_(item%252C_netherite_trimmed)_JE2.png",
+      count: 4,
+      position: 17,
+    },
+    {
+      id: 2,
+      image:
+        "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimages3.wikia.nocookie.net%2F__cb20111001070117%2Fminecraft%2Fimages%2F6%2F67%2FCobblestone.png",
+      count: 2,
+      position: 3,
+    },
+    {
+      id: 3,
+      image:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwiki.hypixel.net%2Fimages%2F2%2F22%2FMinecraft_items_hopper.png",
+      count: 5,
+    },
   ] as ItemType[]
 }
 
