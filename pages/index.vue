@@ -7,7 +7,7 @@
           <VueDraggable
             ref="draggable"
             v-model="sortedItems"
-            :animation="150"
+            :animation="0"
             class="grid-cols-5 grid-rows-5 h-full w-full grid"
             @end="onEnd"
           >
@@ -44,16 +44,20 @@ const activeItem = ref(undefined as ItemType | undefined)
 
 const gridElementsAll = computed(() => gridElementsX.value * gridElementsY.value)
 
-const items = ref([
-  { id: 1, image: "image", count: 4, position: 17 },
-  { id: 2, image: "image", count: 2, position: 3 },
-  { id: 3, image: "image", count: 5 },
-] as ItemType[])
+const items = useCookie<ItemType[] | null | undefined>("items")
+
+if (!items.value) {
+  items.value = [
+    { id: 1, image: "image", count: 4, position: 17 },
+    { id: 2, image: "image", count: 2, position: 3 },
+    { id: 3, image: "image", count: 5 },
+  ] as ItemType[]
+}
 
 const sortedItems = computed((): Array<ItemType | null> => {
   const result = Array(gridElementsAll.value).fill(null)
 
-  items.value.forEach(item => {
+  items.value!.forEach(item => {
     if (item.position !== undefined && item.position < gridElementsAll.value) {
       result[item.position] = item
     }
@@ -61,7 +65,7 @@ const sortedItems = computed((): Array<ItemType | null> => {
 
   let nextAvailableIndex = result.findIndex(item => !item)
 
-  items.value.forEach(item => {
+  items.value!.forEach(item => {
     if (item.position === undefined) {
       while (nextAvailableIndex < gridElementsAll.value) {
         if (result[nextAvailableIndex] === null) {
@@ -77,13 +81,13 @@ const sortedItems = computed((): Array<ItemType | null> => {
   return result
 })
 
-const onEnd = (e: DraggableEvent) => {
-  const movedItem = sortedItems.value[e.oldIndex]
-  const newPosition = e.newIndex
+const onEnd = (event: DraggableEvent) => {
+  const movedItem = sortedItems.value[event.oldIndex!]
+  const newPosition = event.newIndex
 
   if (movedItem && newPosition !== undefined) {
     movedItem.position = newPosition
-    items.value = [...items.value]
+    items.value = [...items.value!]
   }
 }
 
@@ -105,7 +109,7 @@ const showDetailedItem = (item: ItemType | null) => {
 const close = (removeItem?: boolean) => {
   showActiveItem.value = false
 
-  if (removeItem) items.value = items.value.filter(item => item.id !== activeItem.value!.id!)
+  if (removeItem) items.value = items.value!.filter(item => item.id !== activeItem.value!.id!)
 
   activeItem.value = undefined
 }
