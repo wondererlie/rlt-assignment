@@ -1,1 +1,1 @@
-export type ItemType = { id?: number; image?: string; count?: number }
+export type ItemType = { id?: number; image?: string; count?: number; position?: number }

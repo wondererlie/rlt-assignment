@@ -7,11 +7,11 @@
           <div class="grid-cols-5 grid-rows-5 h-full w-full grid">
             <div
               class="size-full"
-              v-for="(item, index) in items"
+              v-for="(item, index) in sortedItems"
               @click="() => showDetailedItem(item)"
               :class="getItemClasses(index)"
             >
-              {{ item.count }}
+              <div class="m-auto">{{ item?.count }}</div>
             </div>
           </div>
           <transition name="slide">
@@ -33,13 +33,39 @@ const showActiveItem = ref(false)
 
 const activeItem = ref(undefined as ItemType | undefined)
 
+const gridElementsAll = computed(() => gridElementsX.value * gridElementsY.value)
+
 const items = ref([
-  { id: 1, image: "image", count: 4 },
-  { id: 2, image: "image", count: 2 },
+  { id: 1, image: "image", count: 4, position: 17 },
+  { id: 2, image: "image", count: 2, position: 3 },
   { id: 3, image: "image", count: 5 },
 ] as ItemType[])
 
-const gridElementsAll = computed(() => gridElementsX.value * gridElementsY.value)
+const sortedItems = computed((): Array<ItemType | null> => {
+  const result = Array(gridElementsAll.value).fill(null)
+
+  items.value.forEach(item => {
+    if (item.position !== undefined && item.position < gridElementsAll.value) {
+      result[item.position] = item
+    }
+  })
+
+  let nextAvailableIndex = result.findIndex(item => !item)
+
+  items.value.forEach(item => {
+    if (item.position === undefined) {
+      while (nextAvailableIndex < gridElementsAll.value) {
+        if (result[nextAvailableIndex] === null) {
+          result[nextAvailableIndex] = item
+          break
+        }
+        nextAvailableIndex++
+      }
+    }
+  })
+
+  return result
+})
 
 const getItemClasses = (index: number) => ({
   "border-def-br":
@@ -50,8 +76,8 @@ const getItemClasses = (index: number) => ({
     gridElementsAll.value - gridElementsX.value < index + 1 && index + 1 < gridElementsAll.value,
 })
 
-const showDetailedItem = (item: ItemType) => {
-  if (!item.image || showActiveItem.value) return
+const showDetailedItem = (item: ItemType | null) => {
+  if (!item || showActiveItem.value) return
   showActiveItem.value = true
   activeItem.value = item
 }
@@ -62,10 +88,6 @@ const close = (removeItem?: boolean) => {
   if (removeItem) items.value = items.value.filter(item => item.id !== activeItem.value!.id!)
 
   activeItem.value = undefined
-}
-
-while (items.value.length < 25) {
-  items.value.push({})
 }
 </script>
 
