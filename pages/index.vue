@@ -15,13 +15,7 @@
             </div>
           </div>
           <transition name="slide">
-            <div
-              class="absolute rounded-xl border-def right-0 top-0 bg-def-600 h-full w-80"
-              v-show="showActiveItem"
-              ref="activeItemBlock"
-            >
-              HELLO
-            </div>
+            <ItemSidebar :activeItem="activeItem" v-show="showActiveItem" @close="close" />
           </transition>
         </div>
       </div>
@@ -31,20 +25,18 @@
 </template>
 
 <script setup lang="ts">
-type ItemType = { image?: string; count?: number }
+import { type ItemType } from "@/types"
 
 const gridElementsX = ref(5)
 const gridElementsY = ref(5)
 const showActiveItem = ref(false)
-const isActiveItemClosable = ref(false)
+
 const activeItem = ref(undefined as ItemType | undefined)
 
-const activeItemBlock = ref(null)
-
 const items = ref([
-  { image: "image", count: 4 },
-  { image: "image", count: 2 },
-  { image: "image", count: 5 },
+  { id: 1, image: "image", count: 4 },
+  { id: 2, image: "image", count: 2 },
+  { id: 3, image: "image", count: 5 },
 ] as ItemType[])
 
 const gridElementsAll = computed(() => gridElementsX.value * gridElementsY.value)
@@ -59,46 +51,45 @@ const getItemClasses = (index: number) => ({
 })
 
 const showDetailedItem = (item: ItemType) => {
-  if (!item.image) return
+  if (!item.image || showActiveItem.value) return
   showActiveItem.value = true
   activeItem.value = item
 }
 
-const exitActiveItem = (event: Event) => {
-  if (isActiveItemClosable.value && !activeItemBlock.value!.contains(event.target)) {
-    showActiveItem.value = false
-    activeItem.value = undefined
-    isActiveItemClosable.value = false
-  } else if (showActiveItem.value) isActiveItemClosable.value = true
+const close = (removeItem?: boolean) => {
+  showActiveItem.value = false
+
+  if (removeItem) items.value = items.value.filter(item => item.id !== activeItem.value!.id!)
+
+  activeItem.value = undefined
 }
 
 while (items.value.length < 25) {
   items.value.push({})
 }
-
-onMounted(() => document.body.addEventListener("click", exitActiveItem))
-onUnmounted(() => document.body.removeEventListener("click", exitActiveItem))
 </script>
 
 <style scoped lang="scss">
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  transition:
+    transform 0.8s ease,
+    opacity 0.8s ease;
 }
 .slide-enter-from {
   transform: translateX(100%);
-  opacity: 0
+  opacity: 0;
 }
 .slide-leave-to {
   transform: translateX(100%);
-  opacity: 0
+  opacity: 0;
 }
 .slide-enter-to {
   transform: translateX(0);
-  opacity: 1
+  opacity: 1;
 }
 .slide-leave-from {
   transform: translateX(0);
-  opacity: 1
+  opacity: 1;
 }
 </style>

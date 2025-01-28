@@ -33,3 +33,11 @@
 .border-def-r {
   @apply border-r border-[#353535];
 }
+
+.btn-danger {
+  @apply bg-red-600 text-white rounded-lg text-center text-lg font-semibold py-2 cursor-pointer;
+}
+
+.btn-white {
+  @apply bg-white text-black rounded-lg text-center text-lg font-semibold py-2 cursor-pointer;
+}
