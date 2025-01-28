@@ -1,75 +1,17 @@
-# Nuxt Minimal Starter
+# RLT Test Assignment
+Код выполненного тестового задания в RLT от [waflawe](https://t.me/waflawe). Кодовая база соответствует стилистике [prettier](https://github.com/wondererlie/rlt-assignment/tree/main/.prettierrc.json). Выполнение задания включает:
+- Само выполненное задание - разработанa верстка по макету в `Figma`.
+- **Docker'изация**, как перевыполнение.
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+## Как установить и протестировать?
+Убедитесь, что у вас установлен Docker и Git, а затем:
+1. Склонируйте репозиторий:
+```cmd
+git clone https://github.com/wondererlie/rlt-assignment.git
+cd rlt-assignment
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+2. Поднимите Docker-Compose:
+```cmd
+docker-compose up
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+3. Проект будет доступен на `http://localhost:3000`.
